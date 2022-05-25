@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  app:
+    container_name: ms-barber-shop
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: run
+    ports:
+      - "${PORT}:${PORT}"
+    restart: on-failure
+    networks:
+      - ig-network
+networks:
+  ig-network:
+    external: true

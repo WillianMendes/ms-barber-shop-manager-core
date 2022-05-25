@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import EnvironmentConfig from './core/config/environment/environment.config';
+import { CustomerModule } from './customer/customer.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(EnvironmentConfig.handle())],
+  imports: [ConfigModule.forRoot(EnvironmentConfig.handle()), CustomerModule],
   controllers: [],
   providers: [],
 })
