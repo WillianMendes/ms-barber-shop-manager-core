@@ -16,7 +16,6 @@ WORKDIR /usr/app
 
 COPY package.json .
 COPY .env ./
-COPY ./cert ./cert
 COPY --from=build /usr/app/src/dist ./
 
 RUN yarn install --production
