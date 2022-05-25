@@ -12,15 +12,12 @@ class ValidationOptions {
         : true;
 
     return {
-      always: true,
       disableErrorMessages: false,
       dismissDefaultMessages: false,
       enableDebugMessages: enableDebugMessages,
+      forbidNonWhitelisted: true,
       stopAtFirstError: false,
       errorHttpStatusCode: HttpStatus.BAD_REQUEST,
-      skipMissingProperties: true,
-      skipNullProperties: true,
-      skipUndefinedProperties: true,
       transform: true,
       whitelist: true,
     };
