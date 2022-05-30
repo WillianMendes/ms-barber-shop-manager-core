@@ -22,28 +22,30 @@ class CpfValidation implements ValidatorConstraintInterface {
       return false;
     }
 
-    const cpfArray: string[] = cpf.split('');
-    let sum = 0;
-    let remainder = 0;
+    try {
+      const cpfArray: string[] = cpf.split('');
+      let sum = 0;
+      let remainder = 0;
 
-    for (let i = 1; i <= 9; i++) {
-      sum = sum + parseInt(cpfArray[i - 1]) * (11 - i);
+      for (let i = 1; i <= 9; i++) {
+        sum = sum + parseInt(cpfArray[i - 1]) * (11 - i);
+      }
+
+      remainder = (sum * 10) % 11;
+      if (remainder == 10 || remainder == 11) remainder = 0;
+      if (remainder != parseInt(cpfArray[9])) return false;
+
+      sum = 0;
+      for (let i = 1; i <= 10; i++) {
+        sum = sum + parseInt(cpfArray[i - 1]) * (12 - i);
+      }
+
+      remainder = (sum * 10) % 11;
+      if (remainder === 10 || remainder === 11) remainder = 0;
+      return remainder === parseInt(cpfArray[10]);
+    } catch (error) {
+      return false;
     }
-
-    remainder = (sum * 10) % 11;
-    if (remainder == 10 || remainder == 11) remainder = 0;
-    if (remainder != parseInt(cpfArray[9])) return false;
-
-    sum = 0;
-    for (let i = 1; i <= 10; i++) {
-      sum = sum + parseInt(cpfArray[i - 1]) * (12 - i);
-    }
-
-    remainder = (sum * 10) % 11;
-    if (remainder === 10 || remainder === 11) remainder = 0;
-    if (remainder !== parseInt(cpfArray[10])) return false;
-
-    return true;
   }
 
   defaultMessage(args: ValidationArguments) {
