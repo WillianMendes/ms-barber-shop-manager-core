@@ -4,18 +4,30 @@ import { plainToInstance } from 'class-transformer';
 import { CustomerController } from './customer.controller';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { validate } from 'class-validator';
+import { CustomerService } from '../service/customer.service';
+import spyOn = jest.spyOn;
 
 describe('CustomerController', () => {
   let controller: CustomerController;
+  let service: CustomerService;
+
+  const makeSpyOnServiceCreate = (customer: CreateCustomerDto) => {
+    spyOn(service, 'create').mockImplementation(() => {
+      return Promise.resolve(customer);
+    });
+  };
 
   beforeEach(async () => {
+    const imports = [CustomerService];
+    const providers = [CustomerService];
     const controllers = [CustomerController];
-    const metadata: ModuleMetadata = { controllers };
+    const metadata: ModuleMetadata = { controllers, imports, providers };
     const moduleBuilder: TestingModuleBuilder =
       Test.createTestingModule(metadata);
     const module: TestingModule = await moduleBuilder.compile();
 
     controller = module.get<CustomerController>(CustomerController);
+    service = module.get<CustomerService>(CustomerService);
   });
 
   describe('create', () => {
@@ -30,6 +42,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       const result = await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -48,6 +61,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -66,6 +80,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -83,6 +98,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -101,6 +117,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -118,6 +135,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -136,6 +154,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -154,6 +173,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -171,6 +191,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -189,6 +210,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -207,6 +229,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -224,6 +247,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -242,6 +266,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -260,6 +285,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -277,6 +303,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -295,6 +322,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
@@ -313,6 +341,7 @@ describe('CustomerController', () => {
       };
 
       const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+      makeSpyOnServiceCreate(customerDto);
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);

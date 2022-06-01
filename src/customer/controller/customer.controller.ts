@@ -1,11 +1,14 @@
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
+import { CustomerService } from '../service/customer.service';
 
 @Controller({
   path: 'customers',
   version: '1',
 })
 export class CustomerController {
+  constructor(private readonly customerService: CustomerService) {}
+
   @Get()
   findAll(): string {
     return '';
@@ -15,6 +18,6 @@ export class CustomerController {
   async create(
     @Body() customer: CreateCustomerDto,
   ): Promise<CreateCustomerDto> {
-    return customer;
+    return this.customerService.create(customer);
   }
 }
