@@ -7,9 +7,7 @@ class ValidationOptions {
 
   public handle(): ValidationPipeOptions {
     const enableDebugMessages =
-      this.configService.get('NODE_ENV') === EnvironmentOptions.Production
-        ? false
-        : true;
+      this.configService.get('NODE_ENV') !== EnvironmentOptions.Production;
 
     return {
       disableErrorMessages: false,
