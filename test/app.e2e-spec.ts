@@ -30,7 +30,7 @@ describe('CustomerController (e2e)', () => {
     const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
 
     return request(app.getHttpServer())
-      .post('/customer')
+      .post('/customers')
       .send(customerDto)
       .expect(201);
   });
