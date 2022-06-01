@@ -3,6 +3,5 @@
 
 yarn format
 yarn lint
-yarn test
 yarn test:cov
-test:e2e
+yarn test:e2e
