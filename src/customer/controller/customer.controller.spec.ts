@@ -165,7 +165,7 @@ describe('CustomerController', () => {
       const customerPlain = {
         firstname: 'John',
         lastname: 'Doe',
-        cpf: '44818464881',
+        cpf: '44818464880',
         birthdate: '2000-01-01',
         password: 'password123',
       };
@@ -175,7 +175,25 @@ describe('CustomerController', () => {
       await controller.create(customerDto);
       const errors = await validate(customerDto);
 
-      expect(errors.length).toBe(2);
+      expect(errors.length).toBe(1);
+    });
+
+    it('should be email empty', async () => {
+      const customerPlain = {
+        firstname: 'John',
+        lastname: 'Doe',
+        cpf: '44818464880',
+        email: '',
+        birthdate: '2000-01-01',
+        password: 'password123',
+      };
+
+      const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+
+      await controller.create(customerDto);
+      const errors = await validate(customerDto);
+
+      expect(errors.length).toBe(1);
     });
   });
 });
