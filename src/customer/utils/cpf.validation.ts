@@ -1,12 +1,15 @@
+import { Injectable } from '@nestjs/common';
 import {
-  ValidationArguments,
+  registerDecorator,
+  ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
 
+@Injectable()
 @ValidatorConstraint({ name: 'CpfValidation', async: true })
 class CpfValidation implements ValidatorConstraintInterface {
-  validate(cpf: string, args: ValidationArguments): boolean {
+  validate(cpf: string): boolean {
     if (
       cpf === '00000000000' ||
       cpf === '11111111111' ||
@@ -25,7 +28,7 @@ class CpfValidation implements ValidatorConstraintInterface {
     try {
       const cpfArray: string[] = cpf.split('');
       let sum = 0;
-      let remainder = 0;
+      let remainder: number;
 
       for (let i = 1; i <= 9; i++) {
         sum = sum + parseInt(cpfArray[i - 1]) * (11 - i);
@@ -48,9 +51,19 @@ class CpfValidation implements ValidatorConstraintInterface {
     }
   }
 
-  defaultMessage(args: ValidationArguments) {
+  defaultMessage() {
     return 'CPF is invalid!';
   }
 }
 
-export default CpfValidation;
+export function IsCPF(validationOptions?: ValidationOptions) {
+  return function (object: any, propertyName: string) {
+    registerDecorator({
+      name: 'IsCPF',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      validator: CpfValidation,
+    });
+  };
+}
