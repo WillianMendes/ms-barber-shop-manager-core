@@ -1,4 +1,4 @@
-import { Logger, VersioningType } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import VersioningOptionsCustom from './core/config/versioning/versioning.options';
@@ -19,4 +19,4 @@ async function bootstrap() {
   });
 }
 
-bootstrap();
+bootstrap().then();
