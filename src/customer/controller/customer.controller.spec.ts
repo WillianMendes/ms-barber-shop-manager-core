@@ -285,5 +285,24 @@ describe('CustomerController', () => {
 
       expect(errors.length).toBe(1);
     });
+
+    it('should be password empty', async () => {
+      const customerPlain = {
+        firstname: 'John',
+        lastname: 'Doe',
+        cpf: '44818464880',
+        email: 'john@email.com',
+        birthdate: '2000-01-01',
+        password: '',
+      };
+
+      const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+
+      await controller.create(customerDto);
+      const errors = await validate(customerDto);
+      console.log(errors);
+
+      expect(errors.length).toBe(1);
+    });
   });
 });
