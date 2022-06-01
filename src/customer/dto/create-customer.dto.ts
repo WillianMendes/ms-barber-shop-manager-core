@@ -1,11 +1,8 @@
-import { Type } from 'class-transformer';
 import {
-  IsDate,
   IsDateString,
   IsEmail,
   IsNotEmpty,
   IsString,
-  MaxDate,
   MinLength,
 } from 'class-validator';
 import { IsCPF } from '../utils/cpf.validation';
