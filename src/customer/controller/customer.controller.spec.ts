@@ -90,11 +90,28 @@ describe('CustomerController', () => {
       expect(errors.length).toBe(1);
     });
 
-    it('should be lastname null', async () => {
+    it('should be lastname empty', async () => {
       const customerPlain = {
         firstname: 'John',
         lastname: '',
         cpf: '44818464880',
+        email: 'john@email.com',
+        birthdate: '2000-01-01',
+        password: 'password123',
+      };
+
+      const customerDto = plainToInstance(CreateCustomerDto, customerPlain);
+
+      await controller.create(customerDto);
+      const errors = await validate(customerDto);
+
+      expect(errors.length).toBe(1);
+    });
+
+    it('should be cpf null', async () => {
+      const customerPlain = {
+        firstname: 'John',
+        lastname: 'Doe',
         email: 'john@email.com',
         birthdate: '2000-01-01',
         password: 'password123',
