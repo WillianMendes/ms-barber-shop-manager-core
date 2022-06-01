@@ -1,5 +1,7 @@
 import { Type } from 'class-transformer';
 import {
+  IsDate,
+  IsDateString,
   IsEmail,
   IsNotEmpty,
   IsString,
@@ -26,8 +28,7 @@ export class CreateCustomerDto {
   readonly email: string;
 
   @IsNotEmpty()
-  @MaxDate(new Date())
-  @Type(() => Date)
+  @IsDateString()
   readonly birthdate: string;
 
   @IsNotEmpty()

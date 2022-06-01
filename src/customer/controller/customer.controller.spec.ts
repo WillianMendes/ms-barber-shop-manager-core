@@ -249,13 +249,13 @@ describe('CustomerController', () => {
       expect(errors.length).toBe(1);
     });
 
-    it('should be birthdate greater than the maximum date', async () => {
+    it('should be birthdate invalid', async () => {
       const customerPlain = {
         firstname: 'John',
         lastname: 'Doe',
         cpf: '44818464880',
         email: 'john@email.com',
-        birthdate: '2100-01-01',
+        birthdate: '01/01/2000',
         password: 'password123',
       };
 
@@ -263,6 +263,7 @@ describe('CustomerController', () => {
 
       await controller.create(customerDto);
       const errors = await validate(customerDto);
+      console.log(errors);
 
       expect(errors.length).toBe(1);
     });
