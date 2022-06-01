@@ -1,44 +1,37 @@
-import { Expose, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import {
+  IsEmail,
   IsNotEmpty,
   IsString,
-  IsEmail,
   MaxDate,
-  Validate,
+  MinLength,
 } from 'class-validator';
-import CpfValidation from 'src/utils/cpf.validation';
+import { IsCPF } from '../utils/cpf.validation';
 
-class CreateCustomerDto {
+export class CreateCustomerDto {
   @IsNotEmpty()
   @IsString()
-  @Expose({ name: 'first_name' })
-  private readonly firstName: string;
+  readonly firstname: string;
 
   @IsNotEmpty()
   @IsString()
-  @Expose({ name: 'last_name' })
-  private readonly lastName: string;
+  readonly lastname: string;
 
   @IsNotEmpty()
-  @Validate(CpfValidation)
-  @Expose({ name: 'cpf' })
-  private readonly cpf: string;
+  @IsCPF()
+  readonly cpf: string;
 
   @IsNotEmpty()
   @IsEmail()
-  @Expose({ name: 'email' })
-  private readonly email: string;
+  readonly email: string;
 
   @IsNotEmpty()
   @MaxDate(new Date())
   @Type(() => Date)
-  @Expose({ name: 'birthdate' })
-  private readonly birthdate: string;
+  readonly birthdate: string;
 
   @IsNotEmpty()
   @IsString()
-  @Expose({ name: 'password' })
-  private readonly password: string;
+  @MinLength(8)
+  readonly password: string;
 }
-
-export default CreateCustomerDto;
