@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { CustomerService } from '../service/customer.service';
+import { CustomerEntity } from '../entity/customer.entity';
 
 @Controller({
   path: 'customers',
@@ -15,9 +16,7 @@ export class CustomerController {
   }
 
   @Post()
-  async create(
-    @Body() customer: CreateCustomerDto,
-  ): Promise<CreateCustomerDto> {
+  async create(@Body() customer: CreateCustomerDto): Promise<CustomerEntity> {
     return this.customerService.create(customer);
   }
 }
