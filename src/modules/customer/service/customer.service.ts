@@ -20,7 +20,7 @@ export class CustomerService {
       password: passwordHashed,
     });
 
-    console.log(customer);
+    this.logger.log(`Cliente criado: ${JSON.stringify(customer)}`);
 
     return customer;
   }
