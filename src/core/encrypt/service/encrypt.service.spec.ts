@@ -12,6 +12,12 @@ describe('EncryptService', () => {
     });
   };
 
+  const makeSpyOnServiceCompare = (text: string, hash: string) => {
+    spyOn(service, 'compare').mockImplementation(() => {
+      return Promise.resolve(text === hash);
+    });
+  };
+
   beforeEach(async () => {
     const providers = [EncryptService];
     const exports = [EncryptService];
@@ -29,5 +35,14 @@ describe('EncryptService', () => {
 
     const resultHash = await service.encrypt(passwordTest);
     expect(resultHash).toEqual(passwordTest);
+  });
+
+  it('should be encrypt compare return true', async () => {
+    const passwordTest = 'password123';
+    const hashTest = 'password123';
+    makeSpyOnServiceCompare(passwordTest, hashTest);
+
+    const resultCompare = await service.compare(passwordTest, hashTest);
+    expect(resultCompare).toEqual(true);
   });
 });
