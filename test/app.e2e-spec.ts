@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { plainToInstance } from 'class-transformer';
-import { CreateCustomerDto } from '../src/customer/dto/create-customer.dto';
+import { CreateCustomerDto } from '../src/modules/customer/dto/create-customer.dto';
 
 describe('CustomerController (e2e)', () => {
   let app: INestApplication;
