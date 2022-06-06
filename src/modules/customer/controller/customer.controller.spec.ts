@@ -1,25 +1,30 @@
-import { Test, TestingModule, TestingModuleBuilder } from '@nestjs/testing';
 import { ModuleMetadata } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { CustomerController } from './customer.controller';
-import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { validate } from 'class-validator';
-import { CustomerService } from '../service/customer.service';
+import { Test, TestingModule, TestingModuleBuilder } from '@nestjs/testing';
 import spyOn = jest.spyOn;
+import { CustomerController } from './customer.controller';
+import { CustomerService } from '../service/customer.service';
+import { EncryptService } from '../../../core/encrypt/service/encrypt.service';
+import { CustomerEntity } from '../entity/customer.entity';
+import { CustomerFactory } from '../entity/customer.factory';
+import { CreateCustomerDto } from '../dto/create-customer.dto';
 
 describe('CustomerController', () => {
   let controller: CustomerController;
   let service: CustomerService;
 
-  const makeSpyOnServiceCreate = (customer: CreateCustomerDto) => {
+  const makeSpyOnServiceCreate = (customerDto: CreateCustomerDto) => {
     spyOn(service, 'create').mockImplementation(() => {
+      const customer: CustomerEntity =
+        CustomerFactory.entityByCreateDTO(customerDto);
       return Promise.resolve(customer);
     });
   };
 
   beforeEach(async () => {
-    const imports = [CustomerService];
-    const providers = [CustomerService];
+    const imports = [EncryptService];
+    const providers = [CustomerService, EncryptService];
     const controllers = [CustomerController];
     const metadata: ModuleMetadata = { controllers, imports, providers };
     const moduleBuilder: TestingModuleBuilder =
@@ -47,8 +52,10 @@ describe('CustomerController', () => {
       const result = await controller.create(customerDto);
       const errors = await validate(customerDto);
 
+      const customer = CustomerFactory.entityByCreateDTO(customerDto);
+
       expect(errors.length).toBe(0);
-      expect(result).toEqual(customerDto);
+      expect(result).toEqual(customer);
     });
 
     it('should be firstname null', async () => {
