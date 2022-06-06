@@ -45,4 +45,13 @@ describe('EncryptService', () => {
     const resultCompare = await service.compare(passwordTest, hashTest);
     expect(resultCompare).toEqual(true);
   });
+
+  it('should be encrypt compare return false', async () => {
+    const passwordTest = 'password123';
+    const hashTest = 'password1234';
+    makeSpyOnServiceCompare(passwordTest, hashTest);
+
+    const resultCompare = await service.compare(passwordTest, hashTest);
+    expect(resultCompare).toEqual(false);
+  });
 });
