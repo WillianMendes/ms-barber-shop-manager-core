@@ -1,12 +1,12 @@
 import { EmailEntity } from './email.entity';
 
 export class CustomerEntity {
-  private firstname: string;
-  private lastname: string;
-  private cpf: string;
-  private email: EmailEntity;
-  private birthdate: string;
-  private password: string;
+  public firstname: string;
+  public lastname: string;
+  public cpf: string;
+  public email: EmailEntity;
+  public birthdate: string;
+  public password: string;
 
   constructor(
     firstname: string,

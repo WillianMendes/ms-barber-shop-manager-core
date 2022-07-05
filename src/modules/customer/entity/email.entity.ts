@@ -1,6 +1,6 @@
 export class EmailEntity {
-  private address: string;
-  private isConfirmed: boolean;
+  public address: string;
+  public isConfirmed: boolean;
 
   constructor(address: string, isConfirmed = false) {
     this.address = address;
