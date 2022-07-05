@@ -5,10 +5,12 @@ import { Test, TestingModule, TestingModuleBuilder } from '@nestjs/testing';
 import spyOn = jest.spyOn;
 import { CustomerController } from './customer.controller';
 import { CustomerService } from '../service/customer.service';
-import { EncryptService } from '../../../core/encrypt/service/encrypt.service';
+import { EncryptService } from '../../../core/shared/encrypt/service/encrypt.service';
 import { CustomerEntity } from '../entity/customer.entity';
 import { CustomerFactory } from '../entity/customer.factory';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
+import CustomerRepository from '../repository/customer.repository';
+import { PrismaService } from '../../../core/config/database/service/prisma.service';
 
 describe('CustomerController', () => {
   let controller: CustomerController;
@@ -24,7 +26,12 @@ describe('CustomerController', () => {
 
   beforeEach(async () => {
     const imports = [EncryptService];
-    const providers = [CustomerService, EncryptService];
+    const providers = [
+      CustomerService,
+      CustomerRepository,
+      EncryptService,
+      PrismaService,
+    ];
     const controllers = [CustomerController];
     const metadata: ModuleMetadata = { controllers, imports, providers };
     const moduleBuilder: TestingModuleBuilder =
