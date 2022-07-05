@@ -2,16 +2,17 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import EnvironmentConfig from './core/config/environment/environment.config';
 import { CustomerModule } from './modules/customer/customer.module';
-import { EncryptModule } from './core/encrypt/encrypt.module';
-import { EncryptService } from './core/encrypt/service/encrypt.service';
+import { DatabaseModule } from './core/config/database/database.module';
+import { EncryptModule } from './core/shared/encrypt/encrypt.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(EnvironmentConfig.handle()),
     CustomerModule,
+    DatabaseModule,
     EncryptModule,
   ],
   controllers: [],
-  providers: [EncryptService],
+  providers: [],
 })
 export class AppModule {}
