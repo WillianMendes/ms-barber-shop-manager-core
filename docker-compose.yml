@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   app:
-    container_name: ms-barber-shop
+    container_name: bs-ms-core
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,7 +10,7 @@ services:
       - "${PORT}:${PORT}"
     restart: on-failure
     networks:
-      - ig-network
+      - bs-network
 networks:
-  ig-network:
+  bs-network:
     external: true
